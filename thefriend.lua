@@ -293,8 +293,11 @@ chatConnection = localplr.Chatted:Connect(function(msg)
 			speak(oldName.." is my BEST FREND!!!!!", true)
 		end
 		if string.find(string.lower(msg), "escape") then
-			speak("GET AWAY FROM ME "..tool.Parent.Name.."!!!!!", true)
-			RunAdonisCommand(":droptools "..tool.Parent.Name)
+			local skibidi = game.Players:GetPlayerFromCharacter(tool.Parent)
+			if skibidi.Parent == game.Players then
+				speak("GET AWAY FROM ME "..tool.Parent.Name.."!!!!!", true)
+				RunAdonisCommand(":droptools "..skibidi.Name)
+			end
 		end
 	end
 end)
