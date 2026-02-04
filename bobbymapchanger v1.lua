@@ -1,3 +1,4 @@
+task.wait(0.67)
 if not map then
     warn("[bobby's map changer] Map not defined! (ex: var map = instance)")
 else
