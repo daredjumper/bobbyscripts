@@ -1,4 +1,5 @@
 task.wait(0.67)
+var btoolsNames = {"Building Tools", "GameTool", "Hammer", "Clone", "Indexing Tool"}
 if not map then
     warn("[bobby's map changer] Map not defined! (ex: var map = instance)")
 else
@@ -10,30 +11,34 @@ else
         end
     end)
     RunAdonisCommand(":re all")
-
-    local btoolsNames = {"Building Tools", "GameTool", "Hammer", "Clone", "Indexing Tool"}
-
-    local function setupAntiF3X(playuhDetector)
+    
+    function antif3x(playuhDetector)
+        task.wait()
         playuhDetector.Backpack.ChildAdded:Connect(function(newitem)
-            if table.find(btoolsNames, newitem.Name) then
-                print("ANTII F3X")
+            if newitem and table.find(btoolsNames, newitem.Name) then
                 RunAdonisCommand(":removetools "..playuhDetector.Name)
             end
         end)
         playuhDetector.Character.ChildAdded:Connect(function(newitemz)
-            if table.find(btoolsNames, newitemz.Name) then
-                print("ANTII F3X")
+            if newitemz and table.find(btoolsNames, newitemz.Name) then
+                print("2.5")
                 RunAdonisCommand(":removetools "..playuhDetector.Name)
             end
         end)
     end
 
     for _, player in game.Players:GetChildren() do
-        setupAntiF3X(player)
+        antif3x(player)
+        player.CharacterAdded:Connect(function()
+            antif3x(player)
+        end)
     end
 
-    game.Players.PlayerAdded:Connect(function(plar)
-        setupAntiF3X(plar)
+    game.Players.PlayerAdded:Connect(function(player)
+        antif3x(player)
+        player.CharacterAdded:Connect(function()
+            antif3x(player)
+        end)
     end)
 end
 
@@ -44,34 +49,35 @@ while task.wait(0.05) do
     for _, char in game.Players:GetChildren() do
         if char then
             if char.Character and char.Character:FindFirstChild("HumanoidRootPart") then
-                local partX = char.Character:FindFirstChild("HumanoidRootPart").Position.X
-                local partZ = char.Character:FindFirstChild("HumanoidRootPart").Position.Z
-                local checkX = false
-                local checkZ = false
-                if partX >= vec11.X then
-                    if partX <= vec22.X then
-                        checkX = true
+                pcall(function()
+                    local partX = char.Character:FindFirstChild("HumanoidRootPart").Position.X
+                    local partZ = char.Character:FindFirstChild("HumanoidRootPart").Position.Z
+                    local checkX = false
+                    local checkZ = false
+                    if partX >= vec11.X then
+                        if partX <= vec22.X then
+                            checkX = true
+                        end
                     end
-                end
 
-                if partZ >= vec11.Z then
-                    if partZ <= vec22.Z then
-                        checkZ = true
+                    if partZ >= vec11.Z then
+                        if partZ <= vec22.Z then
+                            checkZ = true
+                        end
                     end
-                end
-                if checkX and checkZ then
-                    if char.Character then
-                        local plr = char
-                        if plr and plr.Parent then
-                            if plr.Parent == game.Players then
-                                RunAdonisCommand(":re "..plr.Name)
+                    if checkX and checkZ then
+                        if char.Character then
+                            local plr = char
+                            if plr and plr.Parent then
+                                if plr.Parent == game.Players then
+                                    RunAdonisCommand(":re "..plr.Name)
+                                    task.wait(0.5)
+                                end
                             end
                         end
                     end
-                end
+                end)
             end
-            
-
         end
     end
 end
