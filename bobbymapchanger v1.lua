@@ -14,16 +14,18 @@ else
     
     function antif3x(playuhDetector)
         task.wait()
-        playuhDetector.Backpack.ChildAdded:Connect(function(newitem)
-            if newitem and table.find(btoolsNames, newitem.Name) then
-                RunAdonisCommand(":removetools "..playuhDetector.Name)
-            end
-        end)
-        playuhDetector.Character.ChildAdded:Connect(function(newitemz)
-            if newitemz and table.find(btoolsNames, newitemz.Name) then
-                print("2.5")
-                RunAdonisCommand(":removetools "..playuhDetector.Name)
-            end
+        pcall(function()
+            playuhDetector.Backpack.ChildAdded:Connect(function(newitem)
+                if newitem and table.find(btoolsNames, newitem.Name) then
+                    RunAdonisCommand(":removetools "..playuhDetector.Name)
+                end
+            end)
+            playuhDetector.Character.ChildAdded:Connect(function(newitemz)
+                if newitemz and table.find(btoolsNames, newitemz.Name) then
+                    print("2.5")
+                    RunAdonisCommand(":removetools "..playuhDetector.Name)
+                end
+            end)
         end)
     end
 
@@ -47,37 +49,37 @@ local vec22 = Vector3.new(255.5, 20.5, 255.5)
 
 while task.wait(0.05) do
     for _, char in game.Players:GetChildren() do
-        if char then
-            if char.Character and char.Character:FindFirstChild("HumanoidRootPart") then
-                pcall(function()
-                    local partX = char.Character:FindFirstChild("HumanoidRootPart").Position.X
-                    local partZ = char.Character:FindFirstChild("HumanoidRootPart").Position.Z
-                    local checkX = false
-                    local checkZ = false
-                    if partX >= vec11.X then
-                        if partX <= vec22.X then
-                            checkX = true
+        pcall(function()
+            if char then
+                if char.Character and char.Character:FindFirstChild("HumanoidRootPart") then
+                        local partX = char.Character:FindFirstChild("HumanoidRootPart").Position.X
+                        local partZ = char.Character:FindFirstChild("HumanoidRootPart").Position.Z
+                        local checkX = false
+                        local checkZ = false
+                        if partX >= vec11.X then
+                            if partX <= vec22.X then
+                                checkX = true
+                            end
                         end
-                    end
 
-                    if partZ >= vec11.Z then
-                        if partZ <= vec22.Z then
-                            checkZ = true
+                        if partZ >= vec11.Z then
+                            if partZ <= vec22.Z then
+                                checkZ = true
+                            end
                         end
-                    end
-                    if checkX and checkZ then
-                        if char.Character then
-                            local plr = char
-                            if plr and plr.Parent then
-                                if plr.Parent == game.Players then
-                                    RunAdonisCommand(":re "..plr.Name)
-                                    task.wait(0.5)
+                        if checkX and checkZ then
+                            if char.Character then
+                                local plr = char
+                                if plr and plr.Parent then
+                                    if plr.Parent == game.Players then
+                                        RunAdonisCommand(":re "..plr.Name)
+                                        task.wait(0.5)
+                                    end
                                 end
                             end
                         end
-                    end
-                end)
+                end
             end
-        end
+        end)
     end
 end
