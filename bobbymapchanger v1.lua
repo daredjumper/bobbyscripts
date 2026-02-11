@@ -3,7 +3,7 @@ var btoolsNames = {"Building Tools", "GameTool", "Hammer", "Clone", "Indexing To
 if not map then
     warn("[bobby's map changer] Map not defined! (ex: var map = instance)")
 else
-    workspace.ChildRemoved:Connect(function(child)
+    game.Workspace.ChildRemoved:Connect(function(child)
         if child and map and child == map then
             local cl = Clone(map)
             cl.Parent = workspace
