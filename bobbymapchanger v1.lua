@@ -22,7 +22,6 @@ else
             end)
             playuhDetector.Character.ChildAdded:Connect(function(newitemz)
                 if newitemz and table.find(btoolsNames, newitemz.Name) then
-                    print("2.5")
                     RunAdonisCommand(":removetools "..playuhDetector.Name)
                 end
             end)
